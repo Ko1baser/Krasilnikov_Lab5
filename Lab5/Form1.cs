@@ -128,14 +128,20 @@ namespace Lab5
             }
         }
 
-        private void btnExit_Click(object sender, System.EventArgs e)
-        {
-            Environment.Exit(0);
-        }
-
         private void cbx_permission_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            first_number.Text = null;
+            second_number.Text = null;
+        }
+
+        private void btnExit_Click(object sender, System.EventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }
