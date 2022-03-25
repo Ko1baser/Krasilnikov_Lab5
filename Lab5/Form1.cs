@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using MyLib;
 using System.Reflection;
+using MyLib;
 using System.Runtime.InteropServices;
+using System.Runtime;
 
 namespace Lab5
 {
@@ -12,6 +13,9 @@ namespace Lab5
         {
             InitializeComponent();
         }
+
+        public AppDomain newDomainProcess;
+        public Assembly processLibrary;
 
         private void btnAddition_Click(object sender, System.EventArgs e)
         {
@@ -85,8 +89,8 @@ namespace Lab5
                     if (double.Parse(second_number.Text) != 0)
                     {
                         Math_Calculation calculation = new Math_Calculation();
-                        double result = calculation.Multiplication(double.Parse(first_number.Text),double.Parse(second_number.Text));
-                        MessageBox.Show($"Результат умножения: {result}");
+                        double result = calculation.Division(double.Parse(first_number.Text), double.Parse(second_number.Text));
+                        MessageBox.Show($"Результат деления: {result}");
                     }
                     else
                     {
@@ -128,9 +132,17 @@ namespace Lab5
             }
         }
 
-        private void cbx_permission_CheckedChanged(object sender, EventArgs e)
+        public void cbx_permission_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (cbx_permission.Checked)
+            {
+                newDomainProcess = AppDomain.CreateDomain("newDomainProcess");
+                processLibrary = newDomainProcess.Load("MyLib");
+            }
+            else
+            {
+                AppDomain.Unload(newDomainProcess);
+            }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
